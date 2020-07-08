@@ -6,7 +6,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("com.example.instagram.Post")
+@ParseClassName("Post")
 public class Post extends ParseObject {
     public static final String KEY_CAPTION = "caption";
     public static final String KEY_USER = "user";
