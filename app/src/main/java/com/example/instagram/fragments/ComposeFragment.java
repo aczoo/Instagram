@@ -103,6 +103,7 @@ public class ComposeFragment extends Fragment {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                takenImage = BitmapScaler.scaleToFitHeight(takenImage,300);
                 ivPicture.setImageBitmap(takenImage);
             } else {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
@@ -138,5 +139,17 @@ public class ComposeFragment extends Fragment {
 
     }
 
-
+    public static class BitmapScaler
+    {
+        public static Bitmap scaleToFitWidth(Bitmap b, int width)
+        {
+            float factor = width / (float) b.getWidth();
+            return Bitmap.createScaledBitmap(b, width, (int) (b.getHeight() * factor), true);
+        }
+        public static Bitmap scaleToFitHeight(Bitmap b, int height)
+        {
+            float factor = height / (float) b.getHeight();
+            return Bitmap.createScaledBitmap(b, (int) (b.getWidth() * factor), height, true);
+        }
+    }
 }

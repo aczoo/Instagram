@@ -5,7 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".fragments.ComposeFragment">
+
+        <ImageView
+            android:id="@+id/ivPicture"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <EditText
             android:id="@+id/etCaption"
@@ -16,24 +23,20 @@
             android:hint="caption"
             android:inputType="textPersonName" />
 
-        <ImageView
-            android:id="@+id/ivPicture"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <Button
             android:id="@+id/btnCapture"
-            android:layout_width="113dp"
-            android:layout_height="44dp"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
 
+            android:includeFontPadding="false"
             android:text="Take Picture"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post" />
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:text="Post"
+            android:textSize="13sp" />
 
 </LinearLayout>
