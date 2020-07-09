@@ -1,77 +1,72 @@
 package com.example.instagram;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.PostsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.example.instagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
-import java.io.File;
-import java.util.List;
+import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "MainActivity";
-    public final String APP_TAG = "MyCustomApp";
     private BottomNavigationView bottomNavigationView;
+    private MenuItem last;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        last= bottomNavigationView.getMenu().findItem(bottomNavigationView.getSelectedItemId());
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch(last.getItemId()){
+                    case R.id.action_compose:
+                        last.setIcon(R.drawable.post_outline);
+                        break;
+                    case R.id.action_profile:
+                        last.setIcon(R.drawable.user_outline);
+                         break;
+                    case R.id.action_home:
+                        last.setIcon(R.drawable.home_outline);
+                        break;
+                }
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_compose:
+                        menuItem.setIcon(R.drawable.post_filled);
                         fragment=new ComposeFragment();
                         break;
                     case R.id.action_home:
+                        menuItem.setIcon(R.drawable.home_filled);
                         fragment=new PostsFragment();
                         break;
                     case R.id.action_profile:
                     default:
-                        fragment=new ComposeFragment();
+                        menuItem.setIcon(R.drawable.user_filled);
+                        fragment=new ProfileFragment();
                         break;
                 }
+                last= menuItem;
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-
                 return true;
                 }
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-        //queryPosts();
     }
 
 }

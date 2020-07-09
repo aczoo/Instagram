@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/tvCaption"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="40dp"
         android:text="Caption"
         android:textSize="18sp" />
 

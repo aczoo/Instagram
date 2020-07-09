@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:itemTextColor="@color/bottom_navigation_colors"
+    app:itemIconTint="@color/bottom_navigation_colors"
+    >
 
     <item
-        android:id="@+id/action_profile"
-        android:title="Profile"
+        android:id="@+id/action_home"
+        android:icon="@drawable/home_filled"
+        android:title="Home"
+        android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_compose"
+        android:icon="@drawable/post_outline"
         android:title="Compose"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_home"
-        android:title="Home"
-        android:visible="true"
+        android:id="@+id/action_profile"
+        android:icon="@drawable/user_outline"
+        android:title="Profile"
         app:showAsAction="always" />
 </menu>
