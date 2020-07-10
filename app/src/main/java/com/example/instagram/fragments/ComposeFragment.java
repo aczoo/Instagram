@@ -59,6 +59,7 @@ public class ComposeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         etCaption = view.findViewById(R.id.etCaption);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnSubmit.setVisibility(View.GONE);
         btnCapture = view.findViewById(R.id.btnCapture);
         ivPicture = view.findViewById(R.id.ivPicture);
         btnCapture.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +106,7 @@ public class ComposeFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 takenImage = BitmapScaler.scaleToFitHeight(takenImage,300);
                 ivPicture.setImageBitmap(takenImage);
+                btnSubmit.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }

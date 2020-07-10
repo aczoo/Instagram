@@ -40,9 +40,10 @@ import static android.app.Activity.RESULT_OK;
 public class DetailsFragment extends DialogFragment {
     private TextView tvUsername, tvCaption, tvTimeStamp;
     private ImageView ivPicture;
-    public DetailsFragment()
-    {
+
+    public DetailsFragment() {
     }
+
     public static DetailsFragment newInstance() {
         DetailsFragment fragment = new DetailsFragment();
         return fragment;
@@ -58,7 +59,7 @@ public class DetailsFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvUsername= view.findViewById(R.id.tvUsername);
+        tvUsername = view.findViewById(R.id.tvUsername);
         tvCaption = view.findViewById(R.id.tvCaption);
         tvTimeStamp = view.findViewById(R.id.tvTime);
         ivPicture = view.findViewById(R.id.ivPicture);
@@ -66,18 +67,29 @@ public class DetailsFragment extends DialogFragment {
 
         tvUsername.setText(post.getUser().getUsername());
         tvCaption.setText(post.getCaption());
-        //tvTimeStamp.setText(getRelativeTimeAgo(post.getTimeStamp()));
-        tvTimeStamp.setText(post.getCreatedAt().toString());
+        tvTimeStamp.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
 
         ParseFile picture = post.getPicture();
-        if (picture!=null)
+        if (picture != null)
             Glide.with(getContext()).load(picture.getUrl()).into(ivPicture);
 
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
-    public String getRelativeTimeAgo(Date bob) {
-        return null;
+
+    public String getRelativeTimeAgo(String rawJsonDate) {
+        String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        String detailedformat = "h:mm a d MMM yy";
+        SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
+        SimpleDateFormat sf2 = new SimpleDateFormat(detailedformat, Locale.ENGLISH);
+        sf.setLenient(true);
+        try {
+            Date dateMillis = sf.parse(rawJsonDate);
+            return sf2.format(dateMillis);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 
