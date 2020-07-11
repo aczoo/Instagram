@@ -1,5 +1,7 @@
 package com.example.instagram.models;
 
+import android.util.Log;
+
 import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
@@ -61,11 +63,9 @@ public class Post extends ParseObject {
         users.add(user);
         removeAll(KEY_LIKES, users);
     }
-
     public int getNumLikes() {
         return getLikes().length();
     }
-
 
 
 }

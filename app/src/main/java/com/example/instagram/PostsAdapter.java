@@ -3,6 +3,7 @@ package com.example.instagram;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvUsername, tvCaption, tvTime, tvLikes;
         private ImageView ivPicture, ivLike;
-        private boolean liked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,22 +92,23 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             tvCaption.setText(post.getCaption());
             tvTime.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
-            tvLikes.setText(post.getNumLikes());
+            tvLikes.setText(String.valueOf(post.getNumLikes()));
             if (isLiked(post)){
-                liked=true;
                 ivLike.setImageResource(R.drawable.ic_vector_heart);}
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-                    if (liked) {
-                        liked=false;
+                    if (isLiked(post)) {
                         ivLike.setImageResource(R.drawable.ic_vector_heart_stroke);
                         post.unlike();
                     } else {
-                        liked=true;
-                        ivLike.setImageResource(R.drawable.ic_vector_heart);}
-                        post.like();
-                    }
+                        ivLike.setImageResource(R.drawable.ic_vector_heart);
+                        post.like();}
+                    tvLikes.setText(String.valueOf(post.getNumLikes()));
+                    post.saveInBackground();
+
+
+                }
 
             });
 

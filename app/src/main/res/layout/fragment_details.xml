@@ -16,9 +16,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tvCaption"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvCaption"
@@ -26,11 +27,11 @@
         android:layout_height="54dp"
         android:text="Caption"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/ivPicture"
+        app:layout_constraintBottom_toTopOf="@id/tvTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUsername" />
+        app:layout_constraintTop_toBottomOf="@id/ivPicture" />
 
     <ImageView
         android:id="@+id/ivPicture"
@@ -38,8 +39,9 @@
         android:layout_height="260dp"
         android:paddingBottom="10dp"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/tvCaption"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCaption"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
