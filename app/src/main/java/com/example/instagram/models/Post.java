@@ -52,6 +52,9 @@ public class Post extends ParseObject {
             return jsonArray;
         }
     }
+    public void setLikes(){
+        put(KEY_LIKES, null);
+    }
     public void like() {
         ParseUser user = ParseUser.getCurrentUser();
         add(KEY_LIKES, user);
