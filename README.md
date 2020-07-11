@@ -51,7 +51,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-![Demo](https://github.com/aczoo/Instagram/insta_demo.gif)
+![Demo](https://github.com/aczoo/Instagram/blob/master/insta_demo.gif)
 
 ## Credits
 
