@@ -34,14 +34,14 @@ The following **stretch** features are implemented:
 - [x] User can like a post and see number of likes for each post in the post details screen.
 
 The following **additional** features are implemented:
-
-- [x] User can delete the photo they tap the x icon
+- [x] Protected/hidden text field for passwords in the login and signup activities
+- [x] In the compose tab, users can delete the photo with the x icon
+- [x] Bitmap orientation is detected to properly rescale the image
 - [x] Users can upload photos from their gallery
   - [ ] sending that photo to the server is a little iffy, hard to convert URI to a File
-- [x] Users can click out of the details page with the fragment's surrounding space
+- [x] Details page is a dialogfragment
 - [x] Displays a shortened timestamp on the home page
-  - [x] Displays a lengthened timestamp on the details fragment
-- [x] Protected/hidden text field for passwords in the login and signup activities
+  - [x] lengthened timestamp on the details fragment
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -63,6 +63,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## Notes
 - Uploading stored media has been a dead end for me.
+- Upon testing, I had found a lot of loop holes. For example, using the back button on the home page brought me back to the login activity, rather than closing the app. This is really simple, but I hadn't thought about closing activities before. TLDR: with a chronological order to activities, the parents should be killed after prompting the child.
 - A lot of similarities to Twitter. That being said, building this simplified Instagram really reinforces our understanding of what we had learned last week.
 
 ## License
