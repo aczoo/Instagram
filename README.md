@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 - [x] Show the username and creation time for each post
 - [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - User Profiles:
-  - [] Allow the logged in user to add a profile photo
+  - [ ] Allow the logged in user to add a profile photo
   - [ ] Display the profile photo with each post
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page
   - [ ] User Profile shows posts in a grid view
@@ -40,7 +40,7 @@ The following **additional** features are implemented:
 - [x] Users can click out of the details fragment with the surrounding space
 - [x] Displays a shortened timestamp on the home page
   - [x] Displays a lengthened timestamp on the details fragment
-
+- [x] Protected/hidden text field for passwords in the login and signup activities
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -66,7 +66,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2020] [?]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
