@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +26,9 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.R;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.text.ParseException;
@@ -38,8 +41,11 @@ import okhttp3.Headers;
 import static android.app.Activity.RESULT_OK;
 
 public class DetailsFragment extends DialogFragment {
-    private TextView tvUsername, tvCaption, tvTimeStamp;
-    private ImageView ivPicture;
+    public static final String TAG = "DialogFragment";
+    private TextView tvUsername, tvCaption, tvTimeStamp, tvLikes;
+    private ImageView ivPicture, ivLike;
+    private int pos;
+
 
     public DetailsFragment() {
     }
@@ -63,11 +69,36 @@ public class DetailsFragment extends DialogFragment {
         tvCaption = view.findViewById(R.id.tvCaption);
         tvTimeStamp = view.findViewById(R.id.tvTime);
         ivPicture = view.findViewById(R.id.ivPicture);
-        Post post = getArguments().getParcelable("post");
-
+        ivLike = view.findViewById(R.id.ivLike);
+        tvLikes = view.findViewById(R.id.tvLikes);
+        for (String key:getArguments().keySet())
+        {
+            Log.i (TAG, key + " is a key in the bundle");
+        }
+        final Post post = getArguments().getParcelable("post");
+        pos = getArguments().getInt("pos",0);
         tvUsername.setText(post.getUser().getUsername());
         tvCaption.setText(post.getCaption());
         tvTimeStamp.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
+        tvLikes.setText(String.valueOf(post.getNumLikes()));
+
+        if (isLiked(post)){
+            ivLike.setImageResource(R.drawable.ic_vector_heart);}
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                if (isLiked(post)) {
+                    ivLike.setImageResource(R.drawable.ic_vector_heart_stroke);
+                    post.unlike();
+                } else {
+                    ivLike.setImageResource(R.drawable.ic_vector_heart);
+                    post.like();}
+                tvLikes.setText(String.valueOf(post.getNumLikes()));
+                post.saveInBackground();
+            }
+
+        });
+
 
         ParseFile picture = post.getPicture();
         if (picture != null)
@@ -91,6 +122,20 @@ public class DetailsFragment extends DialogFragment {
         }
         return "";
     }
+    public boolean isLiked(Post post) {
+        JSONArray jsonArray = post.getLikes();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                if (jsonArray.getJSONObject(i).getString("objectId").equals(ParseUser.getCurrentUser().getObjectId())) {
+                    return true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
 
 }

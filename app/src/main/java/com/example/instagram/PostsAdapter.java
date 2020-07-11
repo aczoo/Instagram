@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.fragments.DetailsFragment;
+import com.example.instagram.fragments.PostsFragment;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -35,6 +36,7 @@ import okhttp3.Headers;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     private Context context;
+    public static final String TAG = "PostAdapter";
     private List<Post> posts;
 
     public PostsAdapter(Context context, List<Post> posts) {
@@ -117,12 +119,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(picture.getUrl()).into(ivPicture);
 
             itemView.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
                     FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                     DetailsFragment details = DetailsFragment.newInstance();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("post", post);
+                    bundle.putInt("pos", getAdapterPosition());
                     details.setArguments(bundle);
                     details.show(fm, "DetailsFragment");
                 }
@@ -164,6 +168,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
         return false;
     }
+
 
 
 

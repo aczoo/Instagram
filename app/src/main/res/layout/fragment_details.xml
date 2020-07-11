@@ -14,17 +14,13 @@
         android:paddingRight="10dp"
         android:text="Username"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvCaption"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCaption"
         android:layout_width="340dp"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:text="Caption"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/tvTime"
@@ -40,6 +36,7 @@
         android:paddingBottom="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@id/tvCaption"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUsername"
         tools:srcCompat="@tools:sample/avatars" />
@@ -51,6 +48,45 @@
         android:text="06 July 20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPicture" />
+        app:layout_constraintTop_toBottomOf="@id/ll" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="152dp"
+        android:layout_height="28dp"
+        android:gravity="start"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCaption">
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvdesc"
+            android:text="1000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvdesc2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="Likes" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

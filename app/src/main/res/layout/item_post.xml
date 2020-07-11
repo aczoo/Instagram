@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="10dp">
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,8 @@
             android:id="@+id/tvUsername"
             android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="40dp"
+            android:paddingBottom="5dp"
             android:text="Username"
             android:textSize="16sp" />
 
@@ -24,7 +25,7 @@
             android:id="@+id/tvTime"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:layout_weight="1"
             android:gravity="right"
             android:paddingRight="0dp"
@@ -43,15 +44,17 @@
 
     <TextView
         android:id="@+id/tvCaption"
-        android:layout_width="373dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Caption"
         android:textSize="16sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="start"
         android:orientation="horizontal">
 
         <ImageView
@@ -84,4 +87,14 @@
             android:text="Likes" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/horizontalbar"
+        android:layout_width="350dp"
+        android:layout_height="1dip"
+        android:layout_below="@id/ivLike"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary" />
 </LinearLayout>
