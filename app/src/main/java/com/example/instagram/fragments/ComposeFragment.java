@@ -1,21 +1,13 @@
 package com.example.instagram.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -28,8 +20,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.instagram.models.Post;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+
 import com.example.instagram.R;
+import com.example.instagram.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -39,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
+//import org.junit.Assert;
 
 public class ComposeFragment extends Fragment {
     public static final String TAG = "ComposeFragment";
@@ -66,6 +64,7 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //find all of the components within the view
         etCaption = view.findViewById(R.id.etCaption);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnSubmit.setVisibility(View.GONE);
@@ -74,6 +73,8 @@ public class ComposeFragment extends Fragment {
         pb = view.findViewById(R.id.pbLoading);
         ivPicture = view.findViewById(R.id.ivPicture);
         ivDelete = view.findViewById(R.id.ivDelete);
+
+        //set listeners
         ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +121,7 @@ public class ComposeFragment extends Fragment {
         ivPicture.setVisibility(View.GONE);
         ivDelete.setVisibility(View.GONE);
     }
-
+    //opens camera and launches onActivityResult
     private void launchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFileUri(photoFileName);
@@ -143,6 +144,7 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //if photo was taken with the camera
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 ivPicture.setVisibility(View.VISIBLE);
@@ -152,15 +154,34 @@ public class ComposeFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
-        } else if (requestCode == PICK_IMAGE_ACTIVITY_REQUEST_CODE) {
+        }
+        //if photo was taken from the gallery
+        else if (requestCode == PICK_IMAGE_ACTIVITY_REQUEST_CODE) {
             Uri photoUri = data.getData();
-            photoFile = null;
+            //final File file = new File(Environment.getExternalStorageDirectory(), "read.me");
+            //Uri uri = Uri.fromFile(file);
+            //File auxFile = new File(uri.toString());
+            //Assert.assertEqual(file.getAbsolutePath(), auxFile.getAbsolutePath());
+            File file = new File(getPath(photoUri));
+            photoFile = file;
             //issues getting a file from the uri :(
             ivPicture.setVisibility(View.VISIBLE);
             scale(loadFromUri(photoUri), ivPicture);
             btnSubmit.setVisibility(View.VISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
         }
+    }
+    public String getPath(Uri uri)
+    {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) return null;
+        int column_index =cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s=cursor.getString(column_index);
+        cursor.close();
+        return s;
+        //gives ParseException java.lang.IllegalStateException: Unable to encode an unsaved ParseFile
     }
 
     public Bitmap loadFromUri(Uri photoUri) {
@@ -187,6 +208,7 @@ public class ComposeFragment extends Fragment {
     }
 
     private void savePost(String caption, ParseUser currentUser, File photoFile) {
+        //create new post to send to parse
         pb.setVisibility(ProgressBar.VISIBLE);
         Post post = new Post();
         post.setCaption(caption);
@@ -213,7 +235,7 @@ public class ComposeFragment extends Fragment {
 
     public void scale(Bitmap b, ImageView iv) {
         if (b.getWidth() > b.getHeight()) {
-            Log.i(TAG, "horizontal");
+            Log.i(TAG, "horizontal orientation");
             float factor = width / (float) b.getWidth();
             iv.getLayoutParams().height = (int) (b.getHeight() * factor);
             iv.getLayoutParams().width = width;
@@ -221,7 +243,7 @@ public class ComposeFragment extends Fragment {
 
 
         } else {
-            Log.i(TAG, "vertical");
+            Log.i(TAG, "vertical orientation");
             float factor = height / (float) b.getHeight();
             iv.setImageBitmap(Bitmap.createScaledBitmap(b, (int) (b.getWidth() * factor), height, false));
 

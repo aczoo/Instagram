@@ -99,7 +99,6 @@ public class DetailsFragment extends DialogFragment {
 
         });
 
-
         ParseFile picture = post.getPicture();
         if (picture != null)
             Glide.with(getContext()).load(picture.getUrl()).into(ivPicture);
