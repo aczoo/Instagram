@@ -2,7 +2,7 @@
 
 Instagram is a photo sharing app using Parse as its backend.
 
-Time spent: 20 hours spent in total
+Time spent: 18 hours spent in total
 
 ## User Stories
 
@@ -35,17 +35,18 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [x] User can delete the photo they take with the x icon
+- [x] User can delete the photo they tap the x icon
 - [x] Users can upload photos from their gallery
-- [x] Users can click out of the details fragment with the surrounding space
+  - [ ] sending that photo to the server is a little iffy, hard to convert URI to a File
+- [x] Users can click out of the details page with the fragment's surrounding space
 - [x] Displays a shortened timestamp on the home page
   - [x] Displays a lengthened timestamp on the details fragment
 - [x] Protected/hidden text field for passwords in the login and signup activities
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. When attempting to have users upload photos from their gallery, I had a lot of trouble converting an URI to a photo File. I found multiple solutions online, but using ContentResolvers and Cursors didn't work for me.
+2. I would also love to discuss the different methods of transferring data between fragments. For my app, I had an onclick in my Adapter than spawned FragmentA, which upon exit should send data to Fragment B. I attempted to use a local broadcast manager and the setTargetFragment(), but both were iffy.
 
 ## Video Walkthrough
 
@@ -61,8 +62,8 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 
 ## Notes
-
-Describe any challenges encountered while building the app.
+- Uploading stored media has been a dead end for me.
+- A lot of similarities to Twitter. That being said, building this simplified Instagram really reinforces our understanding of what we had learned last week.
 
 ## License
 
