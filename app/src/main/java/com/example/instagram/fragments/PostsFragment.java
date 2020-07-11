@@ -61,7 +61,7 @@ public class PostsFragment extends Fragment {
                 swipeContainer.setRefreshing(false);
             }
         });
-        swipeContainer.setColorSchemeResources(R.color.colorAccent);
+        swipeContainer.setColorSchemeResources(R.color.blue);
         queryPosts();
 
     }

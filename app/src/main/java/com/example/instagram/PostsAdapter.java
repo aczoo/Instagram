@@ -19,12 +19,18 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.fragments.DetailsFragment;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Headers;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     private Context context;
@@ -67,15 +73,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvUsername, tvCaption, tvTime;
-        private ImageView ivPicture;
+        private TextView tvUsername, tvCaption, tvTime, tvLikes;
+        private ImageView ivPicture, ivLike;
+        private boolean liked;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCaption = itemView.findViewById(R.id.tvCaption);
             ivPicture = itemView.findViewById(R.id.ivPicture);
+            ivLike = itemView.findViewById(R.id.ivLike);
             tvTime = itemView.findViewById(R.id.tvTime);
+            tvLikes = itemView.findViewById(R.id.tvLikes);
 
         }
 
@@ -83,10 +92,29 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             tvCaption.setText(post.getCaption());
             tvTime.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
+            tvLikes.setText(post.getNumLikes());
+            if (isLiked(post)){
+                liked=true;
+                ivLike.setImageResource(R.drawable.ic_vector_heart);}
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    if (liked) {
+                        liked=false;
+                        ivLike.setImageResource(R.drawable.ic_vector_heart_stroke);
+                        post.unlike();
+                    } else {
+                        liked=true;
+                        ivLike.setImageResource(R.drawable.ic_vector_heart);}
+                        post.like();
+                    }
+
+            });
 
             ParseFile picture = post.getPicture();
             if (picture != null)
                 Glide.with(context).load(picture.getUrl()).into(ivPicture);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -120,4 +148,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 return relativeDate;
         }
     }
+
+
+    public boolean isLiked(Post post) {
+        JSONArray jsonArray = post.getLikes();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                if (jsonArray.getJSONObject(i).getString("objectId").equals(ParseUser.getCurrentUser().getObjectId())) {
+                    return true;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+
+
 }

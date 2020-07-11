@@ -1,42 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/colorPrimaryDark"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".fragments.ComposeFragment">
 
-        <ImageView
-            android:id="@+id/ivPicture"
-            android:layout_width="200dp"
-            android:layout_height="300dp"
-            tools:srcCompat="@tools:sample/avatars" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivPicture"
+                    android:layout_width="250dp"
+                    android:layout_height="350dp"
+                    android:visibility="gone"
+                    tools:srcCompat="@tools:sample/avatars" />
+                <ImageView
+                    android:id="@+id/ivDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivPicture"
+                    android:layout_alignRight="@id/ivPicture"
+                    android:clickable="true"
+                    android:src="@android:drawable/ic_delete"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pbLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/progress"
+                    android:visibility="gone" />
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/etCaption"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:ems="10"
             android:hint="caption"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/btnCapture"
-            android:layout_width="115dp"
-            android:layout_height="50dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            android:includeFontPadding="false"
-            android:text="Take Picture"
-            android:textSize="13sp" />
+                <Button
+                    android:id="@+id/btnCapture"
+                    android:layout_width="122dp"
+                    android:layout_height="wrap_content"
+
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:includeFontPadding="false"
+                    android:text="Take Picture"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnGallery"
+                    android:layout_width="115dp"
+                    android:layout_height="50dp"
+
+                    android:layout_alignParentBottom="false"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toEndOf="@+id/btnCapture"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:includeFontPadding="false"
+                    android:text="Gallery"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="115dp"
             android:layout_height="50dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="Post"
+            android:textColor="#FFFFFF"
             android:textSize="13sp" />
 
 </LinearLayout>

@@ -29,11 +29,19 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.whitelogo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -79,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         ParseUser.logOut();
         Intent i = new Intent(this, StartActivity.class);
         startActivity(i);
+        finish();
     }
 
 }

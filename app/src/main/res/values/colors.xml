@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#ABCBDA</color>
     <color name="colorAccent">#537180</color>
     <color name="blue">#2196F3</color>
+    <color name = "like">#CA1756</color>
+
 </resources>
