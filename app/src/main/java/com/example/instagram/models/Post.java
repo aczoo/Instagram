@@ -53,7 +53,7 @@ public class Post extends ParseObject {
         }
     }
     public void setLikes(){
-        put(KEY_LIKES, null);
+        put(KEY_LIKES, new ArrayList<ParseUser>());
     }
     public void like() {
         ParseUser user = ParseUser.getCurrentUser();
